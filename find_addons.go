@@ -7,14 +7,16 @@ import (
 )
 
 func getWowPath() string {
-	switch os := runtime.GOOS; os {
+	wowpath := ""
+	switch runtime.GOOS {
 	case "darwin":
-		return "/Applications/World of Warcraft/Interface/Addons"
+		wowpath = "/Applications/World of Warcraft"
 	case "windows":
-		return "X:/Games/WoW"
+		wowpath = "X:/Games/WoW"
 	default:
-		return "what"
+		log.Fatal("No location for '%s' OS", runtime.GOOS)
 	}
+	return path.Join(wowpath, "Interface", "Addons")
 }
 
 func ListAddons() (addons []os.FileInfo) {
