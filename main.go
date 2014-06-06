@@ -1,11 +1,12 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 func main() {
-  for _, v := range ListAddons() {
-    fmt.Println(v.Name())
-  }
+	addonDirectories := ListAddons()
+	for _, v := range addonDirectories {
+		fmt.Println(GetAddon(v))
+	}
 }

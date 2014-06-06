@@ -1,8 +1,8 @@
 package main
 
 import (
-  "testing"
-  "regexp"
+	"regexp"
+	"testing"
 )
 
 // func TestGetWowPath(t *testing.T) {
@@ -13,10 +13,10 @@ import (
 // }
 
 func TestListAddons(t *testing.T) {
-  BlizzardAddonNameRegexp := regexp.MustCompile("^(Blizzard_).+$")
-  for _, v := range ListAddons() {
-    if BlizzardAddonNameRegexp.MatchString(v.Name()) {
-      t.Errorf("Found Blizzard addon in addon list: %v", v.Name())
-    }
-  }
+	BlizzardAddonNameRegexp := regexp.MustCompile("^(Blizzard_).+$")
+	for _, v := range ListAddons() {
+		if BlizzardAddonNameRegexp.MatchString(v.Name()) {
+			t.Errorf("Found Blizzard addon in addon list: %v", v.Name())
+		}
+	}
 }

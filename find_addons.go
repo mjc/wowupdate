@@ -1,9 +1,9 @@
 package main
 
 import (
-  "io/ioutil"
+	"io/ioutil"
 	"log"
-	"os"
+  "os"
 	"path"
   "regexp"
 	"runtime"
