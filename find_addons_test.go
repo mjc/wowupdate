@@ -5,12 +5,12 @@ import (
 	"testing"
 )
 
-// func TestGetWowPath(t *testing.T) {
-//   const real_path = "/Applications/World of Warcraft/Interface/Addons"
-//   if path := getWowPath(); path != real_path {
-//     t.Errorf("WowPath = %v, want %v", path, real_path)
-//   }
-// }
+func TestGetWowPath(t *testing.T) {
+	const real_path = "/Applications/World of Warcraft/Interface/Addons"
+	if path := getWowPath(); path != real_path {
+		t.Errorf("WowPath = %v, want %v", path, real_path)
+	}
+}
 
 func TestListAddons(t *testing.T) {
 	BlizzardAddonNameRegexp := regexp.MustCompile("^(Blizzard_).+$")

@@ -89,7 +89,7 @@ func listAddonFiles(dir os.FileInfo) (files []string, err error) {
 	if !dir.IsDir() {
 		return files, fmt.Errorf("%v is not a directory", dir.Name())
 	}
-	pattern := filepath.Join(GetWowPath(), dir.Name(), "*")
+	pattern := filepath.Join(getWowPath(), dir.Name(), "*")
 	files, err = filepath.Glob(pattern)
 	return files, err
 }
