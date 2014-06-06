@@ -1,9 +1,12 @@
 package main
 
 import (
-  "os"
   "io/ioutil"
+	"log"
+	"os"
+	"path"
   "regexp"
+	"runtime"
 )
 
 func getWowPath() string {
