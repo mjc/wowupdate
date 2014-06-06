@@ -6,5 +6,7 @@ import (
 
 func main() {
 	addonDirectories := ListAddons()
-	fmt.Println(GetAddon(addonDirectories[0]))
+	for _, v := range addonDirectories {
+		fmt.Println(GetAddon(v))
+	}
 }

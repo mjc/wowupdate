@@ -64,8 +64,10 @@ func parseToc(path string) (toc map[string]string, files []string) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if tocLineIsComment(line) && len(line) > 3 {
-			key, value := tocLineParseMetaData(line)
-			toc[key] = value
+			split := tocLineParseMetaData(line)
+			if len(split) >= 2 {
+				toc[split[0]] = split[1]
+			}
 		} else if len(line) > 2 {
 			files = append(files, line)
 		}
@@ -77,10 +79,10 @@ func tocLineIsComment(line string) (isComment bool) {
 	return strings.HasPrefix(line, "##")
 }
 
-func tocLineParseMetaData(line string) (key, value string) {
+func tocLineParseMetaData(line string) (split []string) {
 	trimmed := strings.TrimSpace(strings.TrimPrefix(line, "##"))
-	split := strings.SplitN(trimmed, ":", 2)
-	return split[0], split[1]
+	split = strings.SplitN(trimmed, ":", 2)
+	return split
 }
 
 func listAddonFiles(dir os.FileInfo) (files []string, err error) {
