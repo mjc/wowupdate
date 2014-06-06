@@ -6,9 +6,15 @@ import (
   "regexp"
 )
 
-func getWowPath() (string) {
-  path := "/Applications/World of Warcraft/Interface/Addons"
-  return path
+func getWowPath() string {
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		return "/Applications/World of Warcraft/Interface/Addons"
+	case "windows":
+		return "X:/Games/WoW"
+	default:
+		return "what"
+	}
 }
 
 func ListAddons() (addons []os.FileInfo) {
