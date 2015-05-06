@@ -21,13 +21,14 @@ type Addon struct {
 	x              map[string]string
 	path           string
 	files          []string
+	updateMethod   string
 }
 
 func GetAddon(dir os.FileInfo) (addon Addon, err error) {
 	var files []string
 	files, err = listAddonFiles(dir)
 	toc := findTocInList(files)
-	params, files := parseToc(toc)
+	params, tocFileList := parseToc(toc)
 
 	addon = Addon{
 		title:          params["Title"],
@@ -38,11 +39,34 @@ func GetAddon(dir os.FileInfo) (addon Addon, err error) {
 		optionalDeps:   parseDependencies(params["OptionalDeps"]),
 		savedVariables: parseDependencies(params["SavedVariables"]),
 		revision:       params["Revision"],
-		files:          files,
+		files:          tocFileList,
 		path:           dir.Name(),
+		updateMethod:   getUpdateMethod(files),
 	}
 
 	return addon, err
+}
+
+func getUpdateMethod(files []string) (updateMethod string) {
+	updateMethod = "curse"
+	for _, value := range files {
+		if isGit(value) {
+			updateMethod = "git"
+		} else if isSvn(value) {
+			updateMethod = "svn"
+		}
+	}
+	return updateMethod
+}
+
+func isGit(dir string) (result bool) {
+	matches, _ := regexp.MatchString("^\\.git$", filepath.Base(dir))
+	return matches
+}
+
+func isSvn(dir string) (result bool) {
+	matches, _ := regexp.MatchString("^\\.svn$", filepath.Base(dir))
+	return matches
 }
 
 func parseDependencies(depList string) (deps []string) {
