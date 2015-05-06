@@ -14,7 +14,10 @@ func main() {
 				log.Fatal(err)
 			}
 		} else if addon.updateMethod == "svn" {
-			SvnUpdate(addon)
+			err := SvnUpdate(addon)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 }
