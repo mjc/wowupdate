@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -81,7 +82,7 @@ func parseToc(path string) (toc map[string]string, files []string) {
 	toc = make(map[string]string)
 	f, err := os.Open(path)
 	if err != nil {
-		fmt.Errorf("Could not open %v", path)
+		log.Fatal(err)
 	}
 	defer f.Close()
 	scanner := bufio.NewScanner(f)

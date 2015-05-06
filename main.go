@@ -1,13 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"log"
 )
 
 func main() {
 	addonDirectories := ListAddons()
 	for _, v := range addonDirectories {
 		addon, _ := GetAddon(v)
-		fmt.Println(addon.updateMethod)
+		if addon.updateMethod == "git" {
+			err := GitUpdate(addon)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else if addon.updateMethod == "svn" {
+			SvnUpdate(addon)
+		}
 	}
 }
